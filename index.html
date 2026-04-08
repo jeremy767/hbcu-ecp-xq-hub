@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HBCU Early College Prep · XQ Policy Alignment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1a3350;--navy-dark:#101e30;--forest:#2a5c46;
+  --plum:#623052;--gold:#c8942a;--gold-lt:#e8b84b;
+  --cream:#f8f5f0;--paper:#fff;--ink:#1a1a1a;--mid:#5a5a5a;
+  --rule:#e2ddd6;--sidebar-w:272px;
+  --ease:cubic-bezier(0.4,0,0.2,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'DM Sans',sans-serif;background:var(--navy-dark);color:var(--ink);display:flex;}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar-w);flex-shrink:0;background:var(--navy-dark);height:100vh;overflow-y:auto;display:flex;flex-direction:column;border-right:1px solid rgba(255,255,255,.07);}
+.sidebar::-webkit-scrollbar{width:3px;}.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);}
+.brand{padding:1.75rem 1.5rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.07);}
+.brand-top{display:flex;align-items:center;gap:.6rem;margin-bottom:.7rem;}
+.brand-mark{width:34px;height:34px;border-radius:5px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.1rem;color:var(--navy-dark);flex-shrink:0;}
+.xq-badge{font-size:.62rem;font-weight:900;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);padding:.2rem .45rem;border-radius:3px;letter-spacing:.04em;}
+.brand-school{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);line-height:1.5;}
+.brand-doc{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:600;color:rgba(255,255,255,.8);margin-top:.2rem;line-height:1.3;}
+.brand-deeds{margin-top:.55rem;font-size:.62rem;color:rgba(255,255,255,.3);}
+.brand-deeds a{color:var(--gold-lt);text-decoration:none;font-weight:600;}
+.brand-deeds a:hover{text-decoration:underline;}
+nav{padding:.9rem 0;flex:1;}
+.nav-lbl{padding:.4rem 1.5rem .2rem;font-size:.58rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.25);}
+.nav-item{display:flex;align-items:flex-start;gap:.65rem;padding:.6rem 1.5rem;cursor:pointer;border-left:3px solid transparent;transition:background .18s,border-color .18s;}
+.nav-item:hover{background:rgba(255,255,255,.04);}
+.nav-item.active{background:rgba(200,148,42,.12);border-left-color:var(--gold);}
+.nav-item.active .np{color:var(--gold);}.nav-item.active .nt{color:#fff;}
+.np{font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);padding-top:.1rem;width:42px;flex-shrink:0;}
+.nt{font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.35;}
+.nav-rule{height:1px;background:rgba(255,255,255,.06);margin:.4rem 1.5rem;}
+.partner-bar{padding:1rem 1.5rem;border-top:1px solid rgba(255,255,255,.07);}
+.partner-lbl{font-size:.56rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.5rem;}
+.partner-links{display:flex;flex-direction:column;gap:.3rem;}
+.partner-links a{font-size:.68rem;font-weight:500;color:rgba(255,255,255,.4);text-decoration:none;transition:color .15s;letter-spacing:.02em;}
+.partner-links a:hover{color:var(--gold-lt);}
+.sidebar-foot{padding:.75rem 1.5rem 1.25rem;font-size:.6rem;color:rgba(255,255,255,.2);line-height:1.6;font-style:italic;}
+
+/* MAIN */
+.main{flex:1;height:100vh;overflow-y:auto;background:var(--cream);display:flex;flex-direction:column;}
+.main::-webkit-scrollbar{width:5px;}.main::-webkit-scrollbar-thumb{background:rgba(0,0,0,.12);border-radius:2px;}
+.topbar{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:1px solid var(--rule);padding:.8rem 2.5rem;display:flex;align-items:center;justify-content:space-between;}
+.tb-crumb{font-size:.73rem;color:var(--mid);display:flex;align-items:center;gap:.35rem;}
+.tb-crumb .sep{opacity:.35;}.tb-crumb .cur{color:var(--navy);font-weight:600;}
+.tb-right{display:flex;align-items:center;gap:.75rem;}
+.tb-badge{font-size:.62rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.22rem .7rem;border-radius:100px;border:1px solid var(--rule);color:var(--mid);}
+.tb-xq{font-size:.62rem;font-weight:900;background:var(--navy);color:#fff;padding:.22rem .6rem;border-radius:3px;letter-spacing:.04em;}
+
+/* SCREENS — only one visible at a time via JS */
+.screen{display:none;flex-direction:column;flex:1;}
+.screen.visible{display:flex;}
+
+/* OVERVIEW HERO */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-dark) 100%);color:#fff;padding:3rem 2.5rem 2.5rem;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;background:radial-gradient(circle,rgba(200,148,42,.14) 0%,transparent 70%);pointer-events:none;}
+.hero::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:1px;background:linear-gradient(90deg,var(--gold) 0%,transparent 55%);}
+.hero-brands{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap;}
+.hb-xq{font-size:.85rem;font-weight:900;background:var(--gold);color:var(--navy-dark);padding:.28rem .65rem;border-radius:4px;letter-spacing:.04em;}
+.hb-sep{color:rgba(255,255,255,.25);font-size:.9rem;}
+.hb-school{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:rgba(255,255,255,.85);border-left:2px solid var(--gold);padding-left:.75rem;line-height:1.2;}
+.hb-partners{font-size:.65rem;font-weight:600;color:rgba(255,255,255,.4);letter-spacing:.06em;text-transform:uppercase;margin-left:.25rem;}
+.h-eye{font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:.65rem;}
+.h-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.75rem);font-weight:700;line-height:1.15;margin-bottom:.85rem;max-width:580px;}
+.h-h1 em{font-style:italic;color:var(--gold-lt);}
+.h-p{font-size:.87rem;color:rgba(255,255,255,.6);line-height:1.75;max-width:520px;font-weight:300;}
+.ov-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;padding:2rem 2.5rem 2.5rem;}
+.ov-card{background:var(--paper);border-radius:10px;border:1px solid var(--rule);padding:1.4rem 1.5rem;cursor:pointer;position:relative;overflow:hidden;transition:border-color .22s,box-shadow .22s;}
+.ov-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--gold);transform:scaleY(0);transform-origin:bottom;transition:transform .22s;}
+.ov-card:hover{border-color:var(--gold);box-shadow:0 4px 20px rgba(200,148,42,.1);}.ov-card:hover::before{transform:scaleY(1);}
+.oc-tag{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.35rem;}
+.oc-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:.5rem;}
+.oc-claim{font-size:.78rem;color:var(--mid);line-height:1.5;}
+.oc-pills{margin-top:.8rem;display:flex;gap:.35rem;flex-wrap:wrap;}
+.ny-pill{font-size:.6rem;font-weight:600;padding:.18rem .55rem;border-radius:100px;}
+.ny-pill.met{background:#d1ead8;color:#1a4a28;}
+.ny-pill.partial{background:#fdecc8;color:#6b4000;}
+.ny-pill.not{background:#fad4d4;color:#6b1a1a;}
+
+/* POLICY VIEW */
+.ph{background:var(--paper);padding:1.75rem 2.5rem 1.5rem;border-bottom:2px solid var(--gold);display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:start;}
+.ph-tag{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.35rem;}
+.ph-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,2.2vw,2rem);font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:.65rem;}
+.ph-def{font-family:'Cormorant Garamond',serif;font-size:.98rem;color:var(--mid);line-height:1.7;max-width:540px;font-style:italic;}
+.ph-pills{display:flex;flex-direction:column;align-items:flex-end;gap:.35rem;padding-top:.25rem;}
+.zones{display:grid;grid-template-columns:repeat(3,1fr);flex:1;}
+.zone{padding:1.75rem 1.75rem 2.25rem;border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:1.1rem;overflow-y:auto;}
+.zone:last-child{border-right:none;}
+.zone::-webkit-scrollbar{width:3px;}.zone::-webkit-scrollbar-thumb{background:rgba(0,0,0,.1);}
+.zh{padding-bottom:.9rem;border-bottom:2px solid;display:flex;flex-direction:column;gap:.15rem;}
+.z-lbl{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;}
+.z-sub{font-family:'Cormorant Garamond',serif;font-size:.88rem;font-style:italic;opacity:.65;}
+.z-claim{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;line-height:1.45;}
+.z-pts{list-style:none;display:flex;flex-direction:column;gap:.55rem;}
+.z-pts li{font-size:.8rem;line-height:1.6;padding-left:1rem;position:relative;}
+.z-pts li::before{content:'';position:absolute;left:0;top:.6em;width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.45;}
+.zone.where{background:#eaf3ec;color:#1b3d2b;}.zone.where .zh{border-color:#2a5c46;}.zone.where .z-lbl{color:#2a5c46;}
+.zone.want{background:#f0eaf4;color:#2d1836;}.zone.want .zh{border-color:#623052;}.zone.want .z-lbl{color:#623052;}
+.zone.prove{background:#fdf5e3;color:#3c2900;}.zone.prove .zh{border-color:#c8942a;}.zone.prove .z-lbl{color:#c8942a;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.screen.visible.anim{animation:fadeUp .28s var(--ease) both;}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="brand">
+    <div class="brand-top">
+      <div class="brand-mark">H</div>
+      <span class="xq-badge">XQ</span>
+    </div>
+    <div class="brand-school">HBCU Early College Prep &middot; Queens, NY</div>
+    <div class="brand-doc">XQ Policy Alignment Hub</div>
+    <div class="brand-deeds">Instructional model: <a href="https://www.revxedu.org/" target="_blank">DEEDS Framework &rarr;</a></div>
+  </div>
+  <nav>
+    <div class="nav-lbl">Navigation</div>
+    <div class="nav-item active" data-view="overview"><div class="np">&#8617;</div><div class="nt">Overview</div></div>
+    <div class="nav-rule"></div>
+    <div class="nav-lbl">Policy Areas</div>
+    <div class="nav-item" data-view="pa12"><div class="np">PA 1&ndash;2</div><div class="nt">Mastery-Based Credits &amp; Core Competencies</div></div>
+    <div class="nav-item" data-view="pa35"><div class="np">PA 3&ndash;5</div><div class="nt">K-16 Alignment &amp; Postsecondary Credits</div></div>
+    <div class="nav-item" data-view="pa4"><div class="np">PA 4</div><div class="nt">Community-Led Redesign</div></div>
+    <div class="nav-item" data-view="pa6"><div class="np">PA 6</div><div class="nt">Internships &amp; Apprenticeships</div></div>
+    <div class="nav-item" data-view="pa78"><div class="np">PA 7&ndash;8</div><div class="nt">Professional Development &amp; Next-Gen Assessments</div></div>
+    <div class="nav-item" data-view="pa910"><div class="np">PA 9&ndash;10</div><div class="nt">Redesigned Transcripts &amp; Success Data</div></div>
+  </nav>
+  <div class="partner-bar">
+    <div class="partner-lbl">Partners</div>
+    <div class="partner-links">
+      <a href="https://xqsuperschool.org" target="_blank">XQ Institute &rarr;</a>
+      <a href="https://uncf.org" target="_blank">UNCF &rarr;</a>
+      <a href="https://www.desu.edu" target="_blank">Delaware State University &rarr;</a>
+      <a href="https://www.revxedu.org/" target="_blank">RevX / DEEDS Framework &rarr;</a>
+    </div>
+  </div>
+  <div class="sidebar-foot">April 2026 &middot; Working Document<br>Not for External Distribution</div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div class="tb-crumb">
+      <span>HBCU ECP</span>
+      <span class="sep">&rsaquo;</span>
+      <span class="cur" id="crumb">Overview</span>
+    </div>
+    <div class="tb-right">
+      <span class="tb-xq">XQ</span>
+      <div class="tb-badge">2026 NY State Policy Report</div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div id="view-overview" class="screen visible">
+    <div class="hero">
+      <div class="hero-brands">
+        <span class="hb-xq">XQ</span>
+        <span class="hb-sep">&times;</span>
+        <span class="hb-school">HBCU Early College Prep</span>
+        <span class="hb-partners">UNCF &middot; Delaware State University</span>
+      </div>
+      <div class="h-eye">XQ Policy Alignment &middot; April 2026</div>
+      <h1 class="h-h1">Where We Are, Where We Want to Be,<br>and <em>What We Prove Together</em></h1>
+      <p class="h-p">A policy-grounded case for investment in HBCU Early College Prep, aligned to XQ's 2026 New York State Policy Report and NYC DOE priorities. Select any policy area to explore.</p>
+    </div>
+    <div class="ov-grid" id="ov-grid"></div>
+  </div>
+
+  <!-- POLICY VIEWS -->
+  <div id="view-pa12"  class="screen"></div>
+  <div id="view-pa35"  class="screen"></div>
+  <div id="view-pa4"   class="screen"></div>
+  <div id="view-pa6"   class="screen"></div>
+  <div id="view-pa78"  class="screen"></div>
+  <div id="view-pa910" class="screen"></div>
+</main>
+
+<script>
+var DEEDS_LINK = '<a href="https://www.revxedu.org/" target="_blank" style="color:inherit;font-weight:700;text-decoration:underline;text-decoration-color:#c8942a;text-underline-offset:2px;">DEEDS</a>';
+
+var DATA = [
+  {id:"pa12",tag:"PA 1 & 2",title:"Mastery-Based Credits & Core Competencies",
+  def:"Grant all districts flexibility to credit learning based on competency rather than seat time. Identify the core competencies necessary for high school graduates.",
+  ny:[{t:"not",l:"PA1 — Not Yet Met"},{t:"met",l:"PA2 — Meets"}],
+  where:{claim:"Built on XQ Learner Outcomes from day one.",pts:["Dr. Johnson sorted and matched XQ competencies in founding design sessions, directly shaping the school's graduate vision","The DEEDS framework (Discover, Examine, Engineer, Do, Share) is the instructional model that makes those competencies measurable in every project","Schoolwide competency-aligned learning is operating now in Queens — the model NY state policy is still trying to enable"]},
+  want:{claim:"The infrastructure to document what is already happening.",pts:["A competency tracking tool to upload student work and code it against XQ outcomes and the NY Portrait of a Graduate","Funding to build or partner with an existing platform to close this documentation gap","Formal designation as a willing pilot site for any XQ or NYSED development effort"]},
+  prove:{claim:"Imagine Black scholars graduating with documented proof of competency, not just grades.",pts:["XQ gains a living proof point that its framework actually transforms learning for Black students, with data to show it","NYC DOE gains a Portrait of a Graduate demonstration site it can point to and replicate across high schools still searching for what this looks like in practice"]}},
+
+  {id:"pa35",tag:"PA 3 & 5",title:"K-16 Alignment & Postsecondary Credits",
+  def:"Align high school graduation requirements with college eligibility for the state's public higher education institutions and directly admit students. Give all high school students the opportunity to earn postsecondary credits.",
+  ny:[{t:"not",l:"PA3 — Not Yet Met"},{t:"not",l:"PA5 — Not Yet Met"}],
+  where:{claim:"9th graders earning real DSU college credits today.",pts:["Live dual enrollment partnership with Delaware State University, fully operational in year one","Dr. Johnson manages articulation agreements and enrollment coordination directly with DSU, including credit transfer and student registration","Guaranteed DSU admission built into the model from the start — the direct admissions outcome PA3 calls for and NY has not yet implemented statewide"]},
+  want:{claim:"Policy protection for what is already working.",pts:["Formal credit articulation agreements between NYC DOE and HBCU partners so the model does not depend on individual relationships","Multi-year funding for partnership coordination infrastructure as the program scales to grades 10 through 12","A seat at the table as XQ and NY state develop dual enrollment and direct admissions policy frameworks"]},
+  prove:{claim:"New York has spent years searching for this model. It is already running.",pts:["XQ gains proof that K-16 alignment is not a policy aspiration but an operational reality when the right HBCU partners are at the table","NYC DOE gains a direct admissions model operating inside a public school today — the activation of a scalable HBCU partnership the city does not yet have anywhere else"]}},
+
+  {id:"pa4",tag:"PA 4",title:"Community-Led Redesign",
+  def:"Invest in community-led high school redesign and provide flexibility and guidance to empower innovation. Provide incentives in the form of funding and greater flexibility that inspire communities to take on the demanding work of reenvisioning the high school learning experience.",
+  ny:[{t:"not",l:"Not Yet Met"}],
+  where:{claim:"Built with UNCF research, rooted in Black cultural identity.",pts:["Before a single student enrolled, Transcend partnered with UNCF to conduct original research grounded in the specific experience and needs of Black students","That research defined what graduate outcomes must look like when rooted in HBCU legacy — not a generic framework retrofitted onto Black students","XQ Learner Outcomes were woven into graduate outcomes through that UNCF-anchored process, and DEEDS became the instructional engine that brings them to life every day"]},
+  want:{claim:"Recognition, flexibility, and sustained funding to go all four years.",pts:["Formal NY state designation as a community-led redesign site, unlocking seat time flexibility and access to state innovation supports","Multi-year investment to complete the full 4-year program build-out","XQ advocacy to position HBCU ECP and the UNCF research process as a national replication model for other HBCU-partnered communities"]},
+  prove:{claim:"Only five states meet PA4. New York is not one of them. HBCU ECP changes that.",pts:["XQ gains a flagship showing what culturally grounded, research-backed community redesign actually looks like in one of the most complex urban school systems in the world","NYC DOE gains the answer to a question it has struggled with for decades: what does a high school truly built for Black students, grounded in cultural excellence, actually look like"]}},
+
+  {id:"pa6",tag:"PA 6",title:"Internships & Apprenticeships",
+  def:"Credit high school students for work-based learning (WBL) and apprenticeships. NY meets this action with a state WBL definition, guiding principles for credentialing, and a robust youth apprenticeship definition in place.",
+  ny:[{t:"met",l:"Meets the Policy Action"}],
+  where:{claim:"NY has the policy. HBCU ECP is building the ecosystem.",pts:["9th grade Leadership Studios use DEEDS modules to introduce career exploration through project-based learning before scholars enter the field","54 minimum work-based learning hours are embedded in program design from the start","Vision to connect second-semester sophomores to DSU Connect — Delaware State's dedicated alumni-to-student mentorship platform — giving scholars access to HBCU alumni across industries"]},
+  want:{claim:"Year 3 funding to activate DSU Connect before 11th grade launches.",pts:["Recruit mentors and design structured apprenticeship experiences via the DSU alumni network and UNCF","Map DEEDS modules to specific career pathways so scholars arrive at DSU Connect with direction and clarity, not just a resume to fill"]},
+  prove:{claim:"What if the students most overlooked by traditional career pipelines had the deepest professional network?",pts:["XQ gains PA6 fully realized: WBL that is culturally resonant, institutionally backed by an HBCU, and built to compound year over year as the DSU alumni network deepens","NYC DOE gains graduates with 54+ documented WBL hours and active HBCU alumni mentors — a career access infrastructure the city does not currently have for Black students"]}},
+
+  {id:"pa78",tag:"PA 7 & 8",title:"Professional Development & Next-Generation Assessments",
+  def:"Invest in professional development tools and resources for educators, focused on project-based and competency-based learning strategies. Implement the next generation of assessments that measure competencies along with academic knowledge and skills.",
+  ny:[{t:"met",l:"PA7 — Meets (PLAN Pilot)"},{t:"partial",l:"PA8 — Partially Meets"}],
+  where:{claim:"HBCU ECP teachers are doing PA7 and PA8 right now, without formal recognition.",pts:["Transcend provides embedded professional development in the DEEDS framework to teachers now","Christina, Wilmot, and others are actively designing and piloting XQ-competency-aligned modules for 2026-27","DEEDS projects generate performance-based artifacts — research papers, physics prototypes, community action projects — that demonstrate competency far beyond what a Regents score captures"]},
+  want:{claim:"Inclusion in the PLAN Pilot and sustained investment to build all four grade levels.",pts:["Formal NYSED PLAN Pilot membership so teachers access state tools, webinars, and peer cohorts alongside other NY schools doing this work","PLAN PBA pilot inclusion so DEEDS-based assessments are formally recognized by the state","Sustained funding to build Grades 10 through 12 curriculum and refine Grade 9, including teacher capacity-building in DEEDS for new subject areas and co-design of modules with DSU faculty"]},
+  prove:{claim:"New York has 30 PLAN Pilot schools. None inside an HBCU early college partnership.",pts:["XQ gains a full 4-year competency-based curriculum co-built with HBCU faculty, tested in a real school, and assessed through the XQ Learner Outcomes framework","NYC DOE gains DEEDS-trained teachers who contribute to the PLAN network rather than just receiving from it"]}},
+
+  {id:"pa910",tag:"PA 9 & 10",title:"Redesigned Transcripts & Success Data",
+  def:"Redesign student transcripts to communicate the full breadth of student competency. Publish data on student postsecondary success for every high school.",
+  ny:[{t:"not",l:"PA9 — Not Yet Met"},{t:"partial",l:"PA10 — Partially Meets"}],
+  where:{claim:"HBCU ECP is building the student record no state knows how to create yet.",pts:["DEEDS project artifacts document demonstrated competency in ways a Regents transcript cannot capture","The DSU partnership creates postsecondary records that will grow: college credits earned, guaranteed university admission, and a trajectory toward an Associate's degree","A real data trail is being built in Southeast Queens right now that PA9 and PA10 are designed to make standard across every school"]},
+  want:{claim:"Access to the infrastructure to make this record official.",pts:["PA9 transcript redesign access so DEEDS project outcomes and XQ competency documentation appear alongside traditional credits","PA10 success data reporting that tracks DSU credit attainment, persistence, and degree progress — not just whether a graduate enrolled","A seat in any XQ or state working group developing these systems, as HBCU ECP has implementation insight no other NY school can offer"]},
+  prove:{claim:"No state has cracked this yet. HBCU ECP is positioned to help New York lead.",pts:["XQ gains a living model of complete student success data built from the ground up around outcomes that matter, trackable from 9th grade DEEDS projects to DSU postsecondary persistence","NYC DOE gains graduates carrying college credits, competency records, and a documented postsecondary path — the story New York needs to be able to tell the country"]}}
+];
+
+var LABELS = {
+  overview:"Overview",
+  pa12:"PA 1 & 2 — Mastery-Based Credits & Core Competencies",
+  pa35:"PA 3 & 5 — K-16 Alignment & Postsecondary Credits",
+  pa4:"PA 4 — Community-Led Redesign",
+  pa6:"PA 6 — Internships & Apprenticeships",
+  pa78:"PA 7 & 8 — Professional Development & Next-Gen Assessments",
+  pa910:"PA 9 & 10 — Redesigned Transcripts & Success Data"
+};
+
+/* Build zone HTML */
+function makeZone(cls, lbl, sub, d) {
+  var pts = d.pts.map(function(b) {
+    return '<li>' + b.replace(/\bDEEDS\b/g, DEEDS_LINK) + '</li>';
+  }).join('');
+  var claim = d.claim.replace(/\bDEEDS\b/g, DEEDS_LINK);
+  return '<div class="zone ' + cls + '">'
+    + '<div class="zh"><div class="z-lbl">' + lbl + '</div><div class="z-sub">' + sub + '</div></div>'
+    + '<div class="z-claim">' + claim + '</div>'
+    + '<ul class="z-pts">' + pts + '</ul>'
+    + '</div>';
+}
+
+/* Render policy views */
+DATA.forEach(function(p) {
+  var el = document.getElementById('view-' + p.id);
+  var pills = p.ny.map(function(s) {
+    return '<span class="ny-pill ' + s.t + '">' + s.l + '</span>';
+  }).join('');
+  el.innerHTML =
+    '<div class="ph">'
+      + '<div>'
+        + '<div class="ph-tag">' + p.tag + ' &middot; XQ 2026 New York State Policy Report</div>'
+        + '<h2 class="ph-title">' + p.title + '</h2>'
+        + '<p class="ph-def">' + p.def + '</p>'
+      + '</div>'
+      + '<div class="ph-pills">' + pills + '</div>'
+    + '</div>'
+    + '<div class="zones">'
+      + makeZone('where', 'Where We Are',          'Present Practice',  p.where)
+      + makeZone('want',  'Where We Want to Be',   'Future Investment', p.want)
+      + makeZone('prove', 'What We Prove Together','Potential Impact',  p.prove)
+    + '</div>';
+});
+
+/* Render overview cards */
+var grid = document.getElementById('ov-grid');
+DATA.forEach(function(p) {
+  var pills = p.ny.map(function(s) {
+    return '<span class="ny-pill ' + s.t + '">' + s.l + '</span>';
+  }).join('');
+  var card = document.createElement('div');
+  card.className = 'ov-card';
+  card.innerHTML =
+    '<div class="oc-tag">' + p.tag + '</div>'
+    + '<div class="oc-title">' + p.title + '</div>'
+    + '<div class="oc-claim">' + p.where.claim + '</div>'
+    + '<div class="oc-pills">' + pills + '</div>';
+  card.addEventListener('click', function() { go(p.id); });
+  grid.appendChild(card);
+});
+
+/* Navigation — simple and reliable */
+function go(id) {
+  /* hide all screens */
+  document.querySelectorAll('.screen').forEach(function(s) {
+    s.classList.remove('visible', 'anim');
+  });
+
+  /* show target */
+  var target = document.getElementById('view-' + id);
+  if (target) {
+    target.classList.add('visible', 'anim');
+  }
+
+  /* highlight nav */
+  document.querySelectorAll('.nav-item').forEach(function(n) {
+    n.classList.toggle('active', n.dataset.view === id);
+  });
+
+  /* breadcrumb */
+  document.getElementById('crumb').textContent = LABELS[id] || id;
+
+  /* scroll main to top */
+  document.querySelector('.main').scrollTop = 0;
+}
+
+/* Wire nav items */
+document.querySelectorAll('.nav-item').forEach(function(n) {
+  n.addEventListener('click', function() { go(n.dataset.view); });
+});
+</script>
+</body>
+</html>
